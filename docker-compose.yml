@@ -1,0 +1,18 @@
+version: '3.3' # specify docker-compose version
+
+services:
+
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: blogdb
+      POSTGRES_USER: user
+    volumes:
+      - ./data/postgresql:/var/lib/postgresql
+
+  
+    
