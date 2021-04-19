@@ -14,8 +14,6 @@ This is a sample project demos how to use Auth0 IDP service to protect the RESTf
 
 TBD.
 
-> The original codes were written in Spring Boot 2.0, there are some slightly difference in the main/master branch due to the changes brought in the latest Spring Boot 2.4.
-
 ## Prerequisites
 
 Make sure you have installed the following software.
