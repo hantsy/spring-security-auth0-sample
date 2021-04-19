@@ -1,4 +1,4 @@
-# spring-webmvc-jwt-sample
+# spring-webmvc-auth0-sample
 
 ![build](https://github.com/hantsy/spring-webmvc-auth0-sample/workflows/build/badge.svg)
 
