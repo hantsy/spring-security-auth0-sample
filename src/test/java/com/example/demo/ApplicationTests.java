@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -35,9 +36,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 @SpringBootTest
+//@AutoConfigureMockMvc
 public class ApplicationTests {
 
-    private MockMvc mockMvc;
+    // @Autowired
+    MockMvc mockMvc;
 
     @Autowired
     WebApplicationContext applicationContext;
@@ -57,8 +60,8 @@ public class ApplicationTests {
     @BeforeEach
     public void setup() {
         this.mockMvc = webAppContextSetup(this.applicationContext)
-            .apply(springSecurity())
-            .build();
+                .apply(springSecurity())
+                .build();
     }
 
     @Test
