@@ -1,4 +1,4 @@
-# spring-webmvc-jwt-sample
+# spring-webmvc-auth0-sample
 
 ![build](https://github.com/hantsy/spring-webmvc-auth0-sample/workflows/build/badge.svg)
 
@@ -13,8 +13,6 @@ This is a sample project demos how to use Auth0 IDP service to protect the RESTf
 ## Guide
 
 TBD.
-
-> The original codes were written in Spring Boot 2.0, there are some slightly difference in the main/master branch due to the changes brought in the latest Spring Boot 2.4.
 
 ## Prerequisites
 
