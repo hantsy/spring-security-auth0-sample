@@ -2,6 +2,7 @@ package com.example.demo.web;
 
 import com.example.demo.domain.Post;
 import com.example.demo.repository.PostRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.function.ServerRequest;
 import org.springframework.web.servlet.function.ServerResponse;
@@ -14,13 +15,10 @@ import java.net.URI;
 import static org.springframework.web.servlet.function.ServerResponse.*;
 
 @Component
+@RequiredArgsConstructor
 public class PostHandler {
     
     private final PostRepository posts;
-    
-    public PostHandler(PostRepository posts) {
-        this.posts = posts;
-    }
     
     public ServerResponse all(ServerRequest req) {
         return ok().body(this.posts.findAll());

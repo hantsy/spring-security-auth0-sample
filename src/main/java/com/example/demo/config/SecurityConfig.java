@@ -28,9 +28,6 @@ import java.util.List;
 @Configuration
 public class SecurityConfig {
 
-    @Value("${auth0.audience}")
-    private String audience;
-
     @Bean
     SecurityFilterChain springWebFilterChain(HttpSecurity http) throws Exception {
         return http
@@ -53,14 +50,14 @@ public class SecurityConfig {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("http://localhost:4200", "https://mytrustedwebsite.com"));
-        configuration.setAllowedMethods(List.of("GET","POST"));
+        configuration.setAllowedMethods(List.of("GET", "POST"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
 
     @Bean
-    JwtDecoder jwtDecoder(OAuth2ResourceServerProperties properties) {
+    JwtDecoder jwtDecoder(OAuth2ResourceServerProperties properties, @Value("${auth0.audience}") String audience) {
         /*
         By default, Spring Security does not validate the "aud" claim of the token, to ensure that this token is
         indeed intended for our app. Adding our own validator is easy to do:
