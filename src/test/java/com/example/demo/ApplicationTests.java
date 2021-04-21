@@ -3,19 +3,17 @@ package com.example.demo;
 import com.example.demo.domain.Post;
 import com.example.demo.repository.PostRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -26,11 +24,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
@@ -62,6 +58,7 @@ public class ApplicationTests {
         this.mockMvc = webAppContextSetup(this.applicationContext)
                 .apply(springSecurity())
                 .build();
+        Mockito.reset(this.posts);
     }
 
     @Test
@@ -76,7 +73,7 @@ public class ApplicationTests {
                                 .accept(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value("test"));
+                .andExpect(jsonPath("$.title").value("test"));
 
         verify(this.posts, times(1)).findById(any(Long.class));
         verifyNoMoreInteractions(this.posts);
@@ -88,7 +85,7 @@ public class ApplicationTests {
         given(this.posts.findById(anyLong())).willReturn(Optional.empty());
         this.mockMvc
                 .perform(
-                        get("/posts/{id}", 2L)
+                        get("/posts/{id}", Long.MAX_VALUE)
                                 .accept(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isNotFound());
@@ -163,6 +160,4 @@ public class ApplicationTests {
     private Jwt.Builder jwtBuilder() {
         return Jwt.withTokenValue("token").header("alg", "none").audience(List.of(audience));
     }
-
-
 }
