@@ -21,8 +21,7 @@ public class DataJpaConfig {
         return () -> Optional.ofNullable(SecurityContextHolder.getContext())
                 .map(SecurityContext::getAuthentication)
                 .filter(Authentication::isAuthenticated)
-                .map(Authentication::getPrincipal)
-                .map(UserDetails.class::cast)
-                .map(u -> new Username(u.getUsername()));
+                .map(Authentication::getName)
+                .map(Username::new);
     }
 }
