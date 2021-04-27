@@ -34,7 +34,7 @@ jobs:
           docker ps -a
 
       - name: Cache Maven packages
-        uses: actions/cache@v1
+        uses: actions/cache@v2.1.5
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
