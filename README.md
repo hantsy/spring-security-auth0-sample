@@ -1,6 +1,6 @@
-# spring-webmvc-auth0-sample
+# Spring Security 5 and Auth0 Integration sample
 
-![build](https://github.com/hantsy/spring-webmvc-auth0-sample/workflows/build/badge.svg)
+![build](https://github.com/hantsy/spring-security-auth0-sample/workflows/build/badge.svg)
 
 ## What is this?
 
