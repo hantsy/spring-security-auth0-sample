@@ -7,30 +7,28 @@ import io.restassured.http.ContentType;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.test.web.servlet.request.RequestPostProcessor;
-
-import java.util.List;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 
-//  From Test tab in your APIs.
+//  From the Test tab in your API page, and authorize the *Test Application* to access your APIs.
 //
 // curl --request POST \
-//         >   --url https://dev-ese8241b.us.auth0.com/oauth/token \
-//         >   --header 'content-type: application/json' \
-//         >   --data '{"client_id":"XXX","client_secret":"XXX","audience":"https://hantsy.github.io/api","grant_type":"client_credentials"}'
+//         --url https://<your auth0 domain>/oauth/token \
+//         --header 'content-type: application/json' \
+//         --data '{"client_id":"XXX","client_secret":"XXX","audience":"https://hantsy.github.io/api","grant_type":"client_credentials"}'
 //         {"access_token":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlYzM1lvNzk5cC1XeFI2NHpJZ29QMyJ9.eyJpc3MiOiJodHRwczovL2Rldi1lc2U4MjQxYi51cy5hdXRoMC5jb20vIiwic3ViIjoiSUVYVjJNYkFpdUVrVjBKN3VmSDBCcXEyYTJZSUYzaDFAY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vaGFudHN5LmdpdGh1Yi5pby9hcGkiLCJpYXQiOjE2MTkzNDAyODUsImV4cCI6MTYxOTQyNjY4NSwiYXpwIjoiSUVYVjJNYkFpdUVrVjBKN3VmSDBCcXEyYTJZSUYzaDEiLCJzY29wZSI6InJlYWQ6cG9zdHMgd3JpdGU6cG9zdHMgZGVsZXRlOnBvc3RzIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.pHoj6txIAkS14QCbRJ7azp6JjfUwaT2YZrznW4CmaKoYfS_Ibi0pg-fkIhgbvTHge_2mZSYhNn76lJA8IM2A0YPRffCYmNRMXhfuhjjP1QyCdiz6u6A8nKc40cN9SG573oOC3-qHaw5jROANRyZPpAY8MEZw3HSQGYAtJ6XY_F-MoJwILv56Ah2paqcU-qhCsX5XHscxI5e1xPj3AygBOHlrKZDZMbffMZK_m3nDP5iF_I7EKsIzCS7SAiZJrSJvFSyMHz2iCkVjnB1kX8FZFItTg7YfdF2D7of2ekKR43haljoaYEtXKfoiQAdThhzHCbZ0zyrFH9zLIicxqjWDaQ","scope":"read:posts write:posts delete:posts","expires_in":86400,"token_type":"Bearer"}
-
+//
+// By default the token will be expired in 24 hrs.
+@Disabled("Regenerate a new token to run this tests.")
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @Slf4j
 public class IntegrationTests {
@@ -44,7 +42,7 @@ public class IntegrationTests {
     @Value("${auth0.audience}")
     private String audience;
 
-    private String token="eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlYzM1lvNzk5cC1XeFI2NHpJZ29QMyJ9.eyJpc3MiOiJodHRwczovL2Rldi1lc2U4MjQxYi51cy5hdXRoMC5jb20vIiwic3ViIjoiSUVYVjJNYkFpdUVrVjBKN3VmSDBCcXEyYTJZSUYzaDFAY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vaGFudHN5LmdpdGh1Yi5pby9hcGkiLCJpYXQiOjE2MTkzNDAyODUsImV4cCI6MTYxOTQyNjY4NSwiYXpwIjoiSUVYVjJNYkFpdUVrVjBKN3VmSDBCcXEyYTJZSUYzaDEiLCJzY29wZSI6InJlYWQ6cG9zdHMgd3JpdGU6cG9zdHMgZGVsZXRlOnBvc3RzIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.pHoj6txIAkS14QCbRJ7azp6JjfUwaT2YZrznW4CmaKoYfS_Ibi0pg-fkIhgbvTHge_2mZSYhNn76lJA8IM2A0YPRffCYmNRMXhfuhjjP1QyCdiz6u6A8nKc40cN9SG573oOC3-qHaw5jROANRyZPpAY8MEZw3HSQGYAtJ6XY_F-MoJwILv56Ah2paqcU-qhCsX5XHscxI5e1xPj3AygBOHlrKZDZMbffMZK_m3nDP5iF_I7EKsIzCS7SAiZJrSJvFSyMHz2iCkVjnB1kX8FZFItTg7YfdF2D7of2ekKR43haljoaYEtXKfoiQAdThhzHCbZ0zyrFH9zLIicxqjWDaQ";
+    private String token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlYzM1lvNzk5cC1XeFI2NHpJZ29QMyJ9.eyJpc3MiOiJodHRwczovL2Rldi1lc2U4MjQxYi51cy5hdXRoMC5jb20vIiwic3ViIjoiSUVYVjJNYkFpdUVrVjBKN3VmSDBCcXEyYTJZSUYzaDFAY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vaGFudHN5LmdpdGh1Yi5pby9hcGkiLCJpYXQiOjE2MTkzNDAyODUsImV4cCI6MTYxOTQyNjY4NSwiYXpwIjoiSUVYVjJNYkFpdUVrVjBKN3VmSDBCcXEyYTJZSUYzaDEiLCJzY29wZSI6InJlYWQ6cG9zdHMgd3JpdGU6cG9zdHMgZGVsZXRlOnBvc3RzIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.pHoj6txIAkS14QCbRJ7azp6JjfUwaT2YZrznW4CmaKoYfS_Ibi0pg-fkIhgbvTHge_2mZSYhNn76lJA8IM2A0YPRffCYmNRMXhfuhjjP1QyCdiz6u6A8nKc40cN9SG573oOC3-qHaw5jROANRyZPpAY8MEZw3HSQGYAtJ6XY_F-MoJwILv56Ah2paqcU-qhCsX5XHscxI5e1xPj3AygBOHlrKZDZMbffMZK_m3nDP5iF_I7EKsIzCS7SAiZJrSJvFSyMHz2iCkVjnB1kX8FZFItTg7YfdF2D7of2ekKR43haljoaYEtXKfoiQAdThhzHCbZ0zyrFH9zLIicxqjWDaQ";
 
     @BeforeEach
     public void setup() {

@@ -49,3 +49,10 @@ java -jar target/xxx.jar
 ## Contribution
 
 Any suggestions are welcome, filing an issue or submitting a PR is also highly recommended.  
+
+
+
+## References
+
+* [The Complete Guide to Angular User Authentication with Auth0](https://auth0.com/blog/complete-guide-to-angular-user-authentication/)
+* [Quickstarts: Single-Page App/Angular](https://auth0.com/docs/quickstart/spa/angular)
