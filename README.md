@@ -27,7 +27,7 @@ Make sure you have installed the following software.
 Clone the source codes from Github.
 
 ```bash
-git clone https://github.com/hantsy/spring-webmvc-auth0-sample
+git clone https://github.com/hantsy/spring-security-auth0-sample
 ```
 
 Open a terminal, and switch to the root folder of the project, and run the following command to build the whole project.
