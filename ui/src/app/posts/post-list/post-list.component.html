@@ -1,0 +1,28 @@
+<div class="row mb-5">
+  <!-- <div class="input-group col-sm-12 col-6">
+    <input type="text" class="form-control" #keyword="ngModel" [(ngModel)]="q" placeholder="Type to filter posts"
+      aria-label="Type to filter posts" aria-describedby="basic-addon2">
+    <button id="basic-addon2" class="btn btn-outline-secondary" (click)="search()">@example.com</button>
+  </div> -->
+  <div class="float-right">
+    <a routerLink="/posts/new" class="btn btn-primary"><i class="bi bi-plus-circle"></i> New Post
+    </a>
+  </div>
+</div>
+<div class="row">
+  <div class="card col-sm-12 col-6 mr-sm-0 mr-2 mb-5" *ngFor="let post of posts">
+    <div class="card-body">
+      <div class="card-title">
+        <h2>{{post.title|uppercase}}</h2>
+        <div>{{post.author?.username||'user'}} &bull; {{post.createdDate|date:'short'}}
+          <a class="btn btn-sm btn-outline-primary" [routerLink]="['/posts', 'edit', post.id]">
+            <i class="bi bi-pencil"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="card-text m-3">With supporting text below as a natural lead-in to additional content.</div>
+    <div class="mr-3 mb-3"><a class="float-right btn btn-outline-secondary"
+        [routerLink]="['/posts', 'view', post.id]">more...</a></div>
+  </div>
+</div>

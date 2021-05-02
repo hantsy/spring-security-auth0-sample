@@ -1,0 +1,5 @@
+router-outlet {
+  margin: 0px;
+  display: flex;
+  flex: 1;
+}
