@@ -1,1 +1,18 @@
-<p>post-details works!</p>
+<div class="card mb-5 w-100">
+  <div class="card-body m-0 d-flex flex-column">
+    <div class="card-title">
+      <h2>
+        {{post.title}}
+      </h2>
+      <p class="text-muted">
+        {{post.createdBy?.username||'unknown'}} &bull; {{post.createdDate|date:'short'}}
+      </p>
+    </div>
+    <div class="card-text">
+      {{post.content}}
+    </div>
+    <div>
+      back to <a routerLink="/posts">{{'post-list'}}</a>
+    </div>
+  </div>
+</div>

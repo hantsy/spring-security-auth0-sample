@@ -24,56 +24,56 @@ import { HomeModule } from './home/home.module';
       audience: 'https://hantsy.github.io/api',
       scope: 'openid profile email read:posts write:posts delete:posts',
       // The AuthHttpInterceptor configuration
-      // httpInterceptor: {
-      //   allowedList: [
-      // Attach access tokens to any calls to '/api' (exact match)
-      //'/api',
-      // Attach access tokens to any calls that start with '/api/'
-      //'/api/*',
-      // Match anything starting with /api/posts, but also specify the audience and scope the attached
-      // access token must have
-      // {
-      //   uri: '/api/posts/*',
-      //   httpMethod: 'get',
-      //   tokenOptions: {
-      //     audience: 'https://hantsy.github.io/api',
-      //     scope: 'read:posts',
-      //   },
-      // },
-      // {
-      //   uri: '/api/posts/*',
-      //   httpMethod: 'post',
-      //   tokenOptions: {
-      //     audience: 'https://hantsy.github.io/api',
-      //     scope: 'write:posts',
-      //   },
-      // },
-      // {
-      //   uri: '/api/posts/*',
-      //   httpMethod: 'put',
-      //   tokenOptions: {
-      //     audience: 'https://hantsy.github.io/api',
-      //     scope: 'write:posts',
-      //   },
-      // },
-      // {
-      //   uri: '/api/posts/*',
-      //   httpMethod: 'delete',
-      //   tokenOptions: {
-      //     audience: 'https://hantsy.github.io/api',
-      //     scope: 'delete:posts',
-      //   },
-      // },
-      // // Using an absolute URI
-      // {
-      //   uri: 'https://dev-ese8241b.us.auth0.com/api/v2/users',
-      //   tokenOptions: {
-      //     audience: 'https://hantsy.github.io/api',
-      //     scope: 'read:users',
-      //   },
-      // },
-      //   ],
-      // },
+      httpInterceptor: {
+        allowedList: [
+          // Attach access tokens to any calls to '/api' (exact match)
+          //'/api',
+          // Attach access tokens to any calls that start with '/api/'
+          '/api/*',
+          // Match anything starting with /api/posts, but also specify the audience and scope the attached
+          // access token must have
+          // {
+          //   uri: '/api/posts/*',
+          //   httpMethod: 'get',
+          //   tokenOptions: {
+          //     audience: 'https://hantsy.github.io/api',
+          //     scope: 'read:posts',
+          //   },
+          // },
+          // {
+          //   uri: '/api/posts/*',
+          //   httpMethod: 'post',
+          //   tokenOptions: {
+          //     audience: 'https://hantsy.github.io/api',
+          //     scope: 'write:posts',
+          //   },
+          // },
+          // {
+          //   uri: '/api/posts/*',
+          //   httpMethod: 'put',
+          //   tokenOptions: {
+          //     audience: 'https://hantsy.github.io/api',
+          //     scope: 'write:posts',
+          //   },
+          // },
+          // {
+          //   uri: '/api/posts/*',
+          //   httpMethod: 'delete',
+          //   tokenOptions: {
+          //     audience: 'https://hantsy.github.io/api',
+          //     scope: 'delete:posts',
+          //   },
+          // },
+          // // Using an absolute URI
+          // {
+          //   uri: 'https://dev-ese8241b.us.auth0.com/api/v2/users',
+          //   tokenOptions: {
+          //     audience: 'https://hantsy.github.io/api',
+          //     scope: 'read:users',
+          //   },
+          // },
+        ],
+      },
     }),
     HomeModule,
     AppRoutingModule,

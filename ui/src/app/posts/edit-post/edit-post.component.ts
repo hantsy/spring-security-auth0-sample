@@ -12,10 +12,10 @@ export class EditPostComponent implements OnInit, OnDestroy {
 
   constructor(private router: Router, private route: ActivatedRoute) {}
 
-  onPostUpdated(event: boolean) {
-    console.log('post was updated!' + event);
+  onPostUpdated(event: any) {
+    console.log('post was updated:' + JSON.stringify(event));
     if (event) {
-      this.router.navigate(['', 'post']);
+      this.router.navigateByUrl('/posts');
     }
   }
 

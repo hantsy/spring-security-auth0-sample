@@ -40,7 +40,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   }
 
   addPost() {
-    this.router.navigate(['', 'post', 'new']);
+    this.router.navigate(['', 'posts', 'new']);
   }
 
   ngOnInit() {

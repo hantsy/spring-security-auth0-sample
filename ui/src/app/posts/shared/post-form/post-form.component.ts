@@ -18,7 +18,7 @@ import { PostService } from '../post.service';
 })
 export class PostFormComponent implements OnInit, OnDestroy {
   @Input() post: Post = { title: '', content: '' };
-  @Output() saved: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() save: EventEmitter<any> = new EventEmitter<any>();
   private sub?: Subscription;
 
   constructor(private postService: PostService) {}
@@ -32,19 +32,23 @@ export class PostFormComponent implements OnInit, OnDestroy {
     if (this.post.id) {
       this.postService.updatePost(this.post.id, _body).subscribe(
         (data) => {
-          this.saved.emit(true);
+          console.log('updated successfully!');
+          this.save.emit(true);
         },
         (error) => {
-          this.saved.emit(false);
+          console.log('failed to update!');
+          this.save.emit(true);
         }
       );
     } else {
       this.postService.savePost(_body).subscribe(
         (data) => {
-          this.saved.emit(true);
+          console.log('saved successfully!');
+          this.save.emit(true);
         },
         (error) => {
-          this.saved.emit(false);
+          console.log('failed to save!');
+          this.save.emit(false);
         }
       );
     }

@@ -33,18 +33,18 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
           if (this.postId) {
             return forkJoin([
               this.postService.getPost(this.postId),
-              this.postService.getCommentsOfPost(this.postId),
+              //this.postService.getCommentsOfPost(this.postId),
             ]);
           }
 
-          throw new Error('post id is required.');
+          throw new Error('request parameter post id is required.');
         })
       )
       .subscribe(
         (res: Array<any>) => {
           console.log(res);
           this.post = res[0];
-          this.comments = res[1];
+          //this.comments = res[1];
         },
         (err) => {
           console.error(err);

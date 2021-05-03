@@ -17,7 +17,7 @@ export class NewPostComponent implements OnInit, OnDestroy {
   onPostSaved(event: any) {
     console.log('post was saved::' + event);
     if (event) {
-      this.router.navigate(['', 'post']);
+      this.router.navigate(['', 'posts']);
     }
   }
 
