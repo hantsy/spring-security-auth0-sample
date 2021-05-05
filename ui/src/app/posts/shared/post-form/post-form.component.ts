@@ -36,8 +36,8 @@ export class PostFormComponent implements OnInit, OnDestroy {
           this.save.emit(true);
         },
         (error) => {
-          console.log('failed to update!');
-          this.save.emit(true);
+          console.log('failed to update:' + JSON.stringify(error));
+          this.save.emit(false);
         }
       );
     } else {
@@ -47,7 +47,7 @@ export class PostFormComponent implements OnInit, OnDestroy {
           this.save.emit(true);
         },
         (error) => {
-          console.log('failed to save!');
+          console.log('failed to save:' + JSON.stringify(error));
           this.save.emit(false);
         }
       );
