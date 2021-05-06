@@ -8,10 +8,9 @@ import { FooterComponent } from './components/footer/footer.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { LogoutButtonComponent } from './components/logout-button/logout-button.component';
 import { MainNavComponent } from './components/main-nav/main-nav.component';
-import { NavBarComponent } from './components/nav-bar/nav-bar.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 
 const COMPONENTS: any[] = [
   LoginButtonComponent,
@@ -27,7 +26,7 @@ const COMPONENTS: any[] = [
 
 const ANGULAR_MODULES: any[] = [FormsModule, ReactiveFormsModule];
 
-const OTHER_MODULES: any[] = [NgbModule];
+const OTHER_MODULES: any[] = [];
 
 @NgModule({
   declarations: [COMPONENTS],
