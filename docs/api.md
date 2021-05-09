@@ -8,7 +8,7 @@ Oidc is an additional supplement to enrich OAuth2 protocol. In Spring Security 5
 
 > If you are new to OAuth2 and OIDC, please check the official [OAuth 2 docs](https://oauth.net/2/) and explore [OpenId Connect](https://openid.net/connect/) related specs. For impatient users, [this introductory article](https://www.digitalocean.com/community/tutorials/an-introduction-to-oauth-2) from DigitalOcean is a good start point.
 
-With Spring Security 5, it is easy to set up OAuth2 *Client* and *Resource server* roles in your applications.  And there is [another incubator project](https://github.com/spring-projects-experimental/spring-authorization-server) which allow you to serve a custom *Authorization server*. In a real world application, we can select a mature IDP service to simplify the integration work of multiple authentication approaches, for example, you want to integrate Google accounts, Facebook, Twitter  and custom username/password authentication in your applications. [Auth0](https://www.auth0.com) and [Okta](https://www.okta.com) are the leading IDP services in this area, they provide excellent administrative UI and rich SDK of all use case in your applications. In the open source world, [Keycloak](https://www.keycloak.org/) is wildly used to host a custom authentication server.
+With Spring Security 5, it is easy to set up OAuth2 *Client* and *Resource server* roles in your applications.  And there is [another incubator project](https://github.com/spring-projects-experimental/spring-authorization-server) which allow you to serve a custom *Authorization server*. In a real world application, I think it is a smart choice  that choosing a mature IDP service to simplify the integration work of multiple authentication services and advanced features, for example, you want to integrate Google accounts, Facebook, Twitter  and custom username/password authentication, ane enable two-phases authencation in your applications. [Auth0](https://www.auth0.com) and [Okta](https://www.okta.com) are the leading IDP services in this area, they provide excellent administrative UI and rich SDK of all use case in your applications. In the open source world, [Keycloak](https://www.keycloak.org/) is widely used to host a custom authentication server.
 
 > From the official Okta blog,  Auth0 has joined the Okta family. I am a little afraid Auth0 will be disappeared like Stormpath. But the Okta guys declared that Auth0 will operate as a standalone brand.
 
@@ -26,15 +26,16 @@ In the dashboard UI, expand the *Applications/APIs* in the left pane, let's crea
 
 Auth0 also provides an *Auth0 Management API* for you to access the Auth0 APIs, and for test purpose, Auth0 also created a *Machine to Machine* application automatically which allow you to interact with your own APIs.
 
-Next let's create our *Backend API* application. Go to https://start.spring.io, add the following dependencies,
+Next let's create our *Backend API* application. Go to https://start.spring.io, fill the required fields, and select *Maven* as build tools and *Java* as language, then add the following dependencies,
 
 * Web Starter
+* Validation 
 * Data JPA
 * Spring Security
 * Lombok
 
-Generate the project archive, extract the files into your disk.
-Import the project into IDEA, open the *pom.xml* file, add spring security oauth2 related dependencies.
+Hit the Generate button to generate the project skeleton into an archive, download it and extract the files into your disk.
+Import the project into your IDEA, open the *pom.xml* file, add spring security oauth2 related dependencies.
 
 ```xml
 <dependency>
@@ -51,7 +52,7 @@ In this post, we are going to integrate Auth0 with Spring Security to protect th
 
 > For the introduction of Spring WebMvc functional programming, check [my post published on Medium](https://hantsy.medium.com/functional-programming-in-spring-mvc-20957653da1).
 
-Declares a `SecurityFilterChain` bean to configure the details of Spring Security framework.
+Declares a `SecurityFilterChain` bean to configure the details of Spring Security.
 
 ```java
 @Bean
@@ -78,7 +79,7 @@ SecurityFilterChain springWebFilterChain(HttpSecurity http) throws Exception {
 
 Unlike the *opaque* token, a JWT token can be simply validated by a local public key or JWK set uri prvided by the authorization server. 
 
-In Spring Security 5, a JWT token can be decoded from a configured *issurer_uri* if the auth provider implements OpenId Configuration spec, and exposes the whole OAuth2/Oidc configuration metadata such as token url, authorization server url, jwk set uri, user info uri etc. through a single url `.well-known/openid-configuration` .  
+In Spring Security 5, a JWT token can be decoded from a configured *issurer_uri* if the auth provider implements OpenId Configuration spec, and exposes the whole OAuth2/Oidc configuration metadata such as token url, authorization server url, jwk set uri, user info uri etc. through a single url `.well-known/openid-configuration`.  
 
 Add the following configuration in the *application.properties*.
 
@@ -253,7 +254,7 @@ private Jwt.Builder jwtBuilder() {
 }
 ```
 
-In an integration test, you can use the same access token generated from the *Test application* to interact with the *Backend API*. 
+In an integration test, you can use the same access token generated from the *Test application* to interact with the *Backend API*. Adding the token into the HTTP header to access the APIs, the following testing codes are written with Rest Assured.
 
 ```java
 @SpringBootTest(webEnvironment = RANDOM_PORT)
