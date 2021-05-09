@@ -37,7 +37,7 @@ public class SecurityConfig {
                 .authorizeRequests(c -> c
                         .antMatchers("/", "/info").permitAll()
                         .antMatchers(HttpMethod.GET, "/posts/**").permitAll()//.hasAuthority("SCOPE_read:posts")
-                        .antMatchers(HttpMethod.POST, "/posts/**").hasAuthority("SCOPE_write:posts")
+                        .antMatchers(HttpMethod.POST, "/posts/**").hasAuthority("SCOPE_write:posts")// access("#oauth2.hasScope('write:posts')")
                         .antMatchers(HttpMethod.PUT, "/posts/**").hasAuthority("SCOPE_write:posts")
                         .antMatchers(HttpMethod.DELETE, "/posts/**").hasAuthority("SCOPE_delete:posts")
                         .anyRequest().authenticated()
