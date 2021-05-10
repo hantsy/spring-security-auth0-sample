@@ -1,26 +1,27 @@
-# Integrating Angular with Auth0
+# Integrating Auth0 into your Angular applications
 
-Auth0 provides SDK for Angular to authenticate users and access the protected APIs simply.
+Auth0 provides SDK for Angular to authenticate users and simply authorize users to access the protected APIs .
 
 In this post, we will create a simple Angular SPA application and try to access the *Backend API* we have created in [the last post](https://hantsy.medium.com/secures-rest-apis-with-spring-security-5-and-auth0-41d579ca1e27).
 
-Firstly lets create an application in the Auth0 management console.
+Firstly lets create a new application in the Auth0 management console. An application presents an OAuth2 *Client* role , each client should have a unique client id to identify it.
 
-In the dashboard UI,  expand *Applications/applications* in the left pane. Click the *Create Application* to start up the creating progress.
+In the dashboard UI,  expand *Applications/applications* in the left pane. Click the *Create Application* button to start up the creating progress.
 
 *  In the application name, set a name for  this new  Angular application, eg.  I used *spa*  here. 
 *  Then select the *Single page applications*.
 * Click the *Create* button.
 
-An application presents an OAuth2 *Client* role . 
+After it is created, open the *Settings* page, you will find a  *Client ID* and  *Client Secrets*  are generated in the page.  In the  *Application URLs* section, add *http://localhost:4200* to the following fields.
 
-After it is created, open the *Settings* page. You will find it include a  *Client ID* and  *Client Secrets*  fields.  In the  *Application URLs* section, add *http://localhost:4200* into the *Allowed Callback URLs*  and *Allowed Logout URLs* fields.
+*  *Allowed Callback URLs*  
+*  *Allowed Logout URLs* 
+* *Allowed Web Origins*
+* *Allowed Origins (CORS)*
 
-In the *Quickstarts* tab, Auth0 provide a series of tutorials to integrate Auth0 with the popular SPA framework, including  Angular/React/Vue, etc.
+In the *Quickstarts* tab, Auth0 provides a series of tutorials to integrate Auth0 with the popular SPA framework, including  Angular/React/Vue, etc.
 
-The source codes of this post can be found on [Github](https://github.com/hantsy/spring-security-auth0-sample/tree/master/ui).
-
-I followed the official Angular Quickstart tutorial, but I refactored the project file structure according to the  [Angular Coding Style Guide](https://angular.io/guide/styleguide), and ported the existing codes from [hantsy/angular-spring-reactive-sample](https://github.com/hantsy/angular-spring-reactive-sample) to simplify the development work.
+I followed the official Angular Quickstart tutorial, but I refactored the project file structure according to the  [Angular Coding Style Guide](https://angular.io/guide/styleguide), and ported the existing codes from [hantsy/angular-spring-reactive-sample](https://github.com/hantsy/angular-spring-reactive-sample) to simplify the development work. The final [source codes]((https://github.com/hantsy/spring-security-auth0-sample/tree/master/ui)) can be found under my Github account.
 
 > More details about creating this sample application step by step, please read the [official Angular Quickstart tutorial](https://auth0.com/docs/quickstart/spa/angular).
 
@@ -112,7 +113,7 @@ const routes: Routes = [
 export class AppRoutingModule {}
 ```
 
-To show/hide the login and log out button, inject a `AuthService` and detect the authentication status via `isAuthenticated` method.
+To show/hide the login and log out button, inject an `AuthService` and detect the authentication status via its `isAuthenticated` method.
 
 ```typescript
 export class AuthenticationButtonComponent implements OnInit {
@@ -133,16 +134,14 @@ The template file of `AuthenticationButtonComponent`.
 
 To test the application, we have to add some testing users in Auth0(you can also use *Signup* form to register a user).
 
-Go to Auth0 management console.  
+Go to Auth0 management console.  Expand the *Authentication/Databases* in the left pane, we will use the default *Username-Password-Authentication* here, click the options button to open *Settings* page, make sure *Requires Username* is checked, I would like to use a username instead of email to login. Switch to *Password Policy*  tab, make *Password strength* lower, it allows you to create simple passwords for your testing users.  Switch to the *Applications* tab, make sure your application is activated there.
 
-Click the *Authentication/Databases* in the left pane, we will use the default *Username-Password-Authentication* here, click the options button to open *Settings* page, make sure *Requires Username* is checked, I would like to use a username instead of email to login. Switch to *Password Policy*  tab, make *Password strength* lower, it allows you to create simple passwords for your testing users.  Switch to the *Applications* tab, make sure your application is activated there.
+Let's  add some users now.   Open *User management/Users* in the dashboard. Click  *Create User* to start adding new users. Add the following new users(username/password/email), and assign permissions to them.
 
-Let's  add some users now,  open *User management/Users* in the dashboard. Click  *Create User* to start adding new users. Add the following new users(username/password), and assign permissions to them.
+* user/password/user@example.com - read:posts, write:posts
+* admin/password/admin@example.com - read:posts, write:posts, delete:posts
 
-* user/password - read:posts, write:posts
-* admin/password- read:posts, write:posts, delete:posts
-
-In the user details page, under the email, mark the email as verified directly to avoid email verification.
+Go to the user details page of every users, under the email, mark the email as verified directly to avoid email verification.
 
 Now back to your application,  run the following command to start it.
 
@@ -159,5 +158,7 @@ Navigate to the *Profile* page, you will see the screen similar to the following
 The blog accesses the *Backend API* we have created. To experience it, make sure the Backend API is running.
 
 ![ui2](./ui2.png)
+
+Try to log out, it should return to the *http://localhost:4200*.
 
 Grab the source codes form my [Github](https://github.com/hantsy/spring-security-auth0-sample/tree/master/ui).
