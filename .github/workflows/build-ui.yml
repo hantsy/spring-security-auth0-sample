@@ -1,0 +1,39 @@
+name: build-ui
+on:
+  push:
+    paths:
+      - "ui/**"
+    branches:
+      - master
+      - release/*
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  build-ui:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup NodeJS
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: "15"
+
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Build
+        run: |
+          cd ./ui
+          npm install
+          npm run build
+          docker build -t hantsy/spring-webmvc-auth0-sample-ui:latest
+

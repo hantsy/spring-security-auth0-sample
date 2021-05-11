@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
-    <artifactId>demo</artifactId>
+    <artifactId>spring-webmvc-auth0-sample-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -91,6 +91,15 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <image>
+                        <name>hantsy/${project.artifactId}:latest</name>
+                        <verboseLogging>true</verboseLogging>
+                        <!--<env>
+                            <BP_JVM_VERSION>14.0.1</BP_JVM_VERSION>
+                        </env>-->
+                    </image>
+                </configuration>
             </plugin>
         </plugins>
     </build>
