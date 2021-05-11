@@ -1,8 +1,8 @@
 name: build
 on:
   push:
-    paths-ignore:
-      - "docs/**"
+    paths:
+      - "api/**"
     branches:
       - master
       - release/*
