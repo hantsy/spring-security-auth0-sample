@@ -13,9 +13,11 @@ services:
       POSTGRES_USER: user
     volumes:
       - postgresdata:/var/lib/postgresql
+    networks:
+      - backend
 
   ui:
-    image: hantsy/spring-security-auth0-sample-ui
+    image: hantsy/spring-webmvc-auth0-sample-ui:latest
     environment:
       - "BACKEND_API_URL=http://api:8080"
     ports:
@@ -27,7 +29,7 @@ services:
       - backend
 
   api:
-    image: hantsy/spring-security-auth0-sample-api
+    image: hantsy/spring-webmvc-auth0-sample-api:latest
     environment:
       - "SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/blogdb"
       - "SPRING_DATASOURCE_USERNAME=user"
