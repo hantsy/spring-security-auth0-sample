@@ -89,10 +89,11 @@ jobs:
         run: mvn -B -q clean dependency:go-offline --file api/pom.xml
 
       - name: Build with Maven
-        env:
-          SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/blogdb
-          SPRING_DATASOURCE_USERNAME: user
-          SPRING_DATASOURCE_PASSWORD: password
+        # env:
+        #   run service on the same virtual machine, use localhost
+        #   SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/blogdb
+        #   SPRING_DATASOURCE_USERNAME: user
+        #   SPRING_DATASOURCE_PASSWORD: password
         run: |
           mvn -B -q package --file api/pom.xml -DskipTests
           mvn -B -q test --file api/pom.xml
