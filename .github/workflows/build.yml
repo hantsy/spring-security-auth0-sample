@@ -1,0 +1,107 @@
+name: build
+on:
+  push:
+    paths-ignore:
+      - "docs/**"
+    branches:
+      - master
+      - release/*
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  build-ui:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup NodeJS
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: "15"
+
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Build
+        run: |
+          cd ./ui
+          npm install
+          npm run build:prod
+          docker build -t hantsy/spring-webmvc-auth0-sample-ui:latest .
+
+      - name: Login to DockerHub Registry
+        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+      - name: Push Docker Image
+        run: docker push hantsy/spring-webmvc-auth0-sample-ui:latest
+
+  build-api:
+    runs-on: ubuntu-latest
+    services:
+      db:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: blogdb
+          POSTGRES_USER: user
+        ports:
+          - 5432:5432
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          # Disabling shallow clone is recommended for improving relevancy of reporting
+          fetch-depth: 0
+
+      - name: Set up JDK 16
+        uses: actions/setup-java@v2
+        with:
+          java-version: 16
+          distribution: "adopt"
+      # use services instead.
+      # - name: Set up Database
+      #   run: |
+      #     docker-compose up -d postgres
+      #     docker ps -a
+
+      - name: Cache Maven packages
+        uses: actions/cache@v2.1.5
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Resolve Maven dependencies
+        run: mvn -B -q clean dependency:go-offline --file api/pom.xml
+
+      - name: Build with Maven
+        env:
+          SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/blogdb
+          SPRING_DATASOURCE_USERNAME: user
+          SPRING_DATASOURCE_PASSWORD: password
+        run: |
+          mvn -B -q package --file api/pom.xml -DskipTests
+          mvn -B -q test --file api/pom.xml
+
+      - name: Build Docker Image
+        run: mvn spring-boot:build-image --file api/pom.xml -DskipTests
+
+      - name: Login to DockerHub Registry
+        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+      - name: Push Docker Image
+        run: docker push hantsy/spring-webmvc-auth0-sample-api:latest
