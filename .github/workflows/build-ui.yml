@@ -35,5 +35,5 @@ jobs:
           cd ./ui
           npm install
           npm run build
-          docker build -t hantsy/spring-webmvc-auth0-sample-ui:latest
+          docker build -t hantsy/spring-webmvc-auth0-sample-ui:latest .
 
