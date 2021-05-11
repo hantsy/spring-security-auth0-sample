@@ -37,3 +37,8 @@ jobs:
           npm run build
           docker build -t hantsy/spring-webmvc-auth0-sample-ui:latest .
 
+      - name: Login to DockerHub Registry
+        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+      - name: Push Docker Image
+        run: docker push hantsy/spring-webmvc-auth0-sample-ui:latest
