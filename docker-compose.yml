@@ -2,7 +2,7 @@ version: '3.3' # specify docker-compose version
 
 services:
 
-  postgres:
+  db:
     image: postgres
     ports:
       - "5432:5432"
@@ -12,7 +12,39 @@ services:
       POSTGRES_DB: blogdb
       POSTGRES_USER: user
     volumes:
-      - ./data/postgresql:/var/lib/postgresql
+      - postgresdata:/var/lib/postgresql
 
-  
-    
+  ui:
+    image: hantsy/spring-security-auth0-sample-ui
+    environment:
+      - "BACKEND_API_URL=http://api:8080"
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+    networks:
+      - frontend
+      - backend
+
+  api:
+    image: hantsy/spring-security-auth0-sample-api
+    environment:
+      - "SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/blogdb"
+      - "SPRING_DATASOURCE_USERNAME=user"
+      - "SPRING_DATASOURCE_PASSWORD=password"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    networks:
+      - backend
+
+volumes:
+  postgresdata:
+#    driver: local-persist
+#    driver_opts:
+#      mountpoint: ./data
+
+networks:
+  frontend:
+  backend:

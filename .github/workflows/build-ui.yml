@@ -34,7 +34,7 @@ jobs:
         run: |
           cd ./ui
           npm install
-          npm run build
+          npm run build:prod
           docker build -t hantsy/spring-webmvc-auth0-sample-ui:latest .
 
       - name: Login to DockerHub Registry
