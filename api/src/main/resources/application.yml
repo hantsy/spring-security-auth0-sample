@@ -22,10 +22,6 @@ spring:
     url: jdbc:postgresql://localhost:5432/blogdb
     username: user
     password: password
-    cachePrepStmts: true
-    prepStmtCacheSize: 250
-    prepStmtCacheSqlLimit: 2048
-    useServerPrepStmts: true
 
   jpa:
     openInView: false
