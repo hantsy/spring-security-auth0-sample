@@ -21,23 +21,25 @@ After it is created, open the *Settings* page, you will find a  *Client ID* and 
 
 In the *Quickstarts* tab, Auth0 provides a series of tutorials to integrate Auth0 with the popular SPA framework, including  Angular/React/Vue, etc.
 
-I followed the official Angular Quickstart tutorial, but I refactored the project file structure according to the  [Angular Coding Style Guide](https://angular.io/guide/styleguide), and ported the existing codes from [hantsy/angular-spring-reactive-sample](https://github.com/hantsy/angular-spring-reactive-sample) to simplify the development work. The final [source codes]((https://github.com/hantsy/spring-security-auth0-sample/tree/master/ui)) can be found under my Github account.
+I followed the official Angular Quickstart tutorial, but I refactored the project file structure according to the  [Angular Coding Style Guide](https://angular.io/guide/styleguide), and ported the existing codes from [hantsy/angular-spring-reactive-sample](https://github.com/hantsy/angular-spring-reactive-sample) to simplify the development work. 
 
 > More details about creating this sample application step by step, please read the [official Angular Quickstart tutorial](https://auth0.com/docs/quickstart/spa/angular).
 
 > For the implementation details of accessing Backend APIs, check [this article I have published on Medium](https://hantsy.medium.com/build-a-reactive-application-with-spring-boot-2-0-and-angular-de0ee5837fed) and this old [Angular2 sample codes](https://github.com/hantsy/angular2-sample).
 
-Here we are going to introduce the details of integrating Auth0 Angular SDK.
+The final [source codes](https://github.com/hantsy/spring-security-auth0-sample/tree/master/ui) can be found under my Github account. Here we are going to introduce the steps of integrating Auth0 Angular SDK.
 
-Install Auth0 Angular SDK.
+Firstly, install Auth0 Angular SDK.
 
 ```bash 
 $ npm i @auth0/auth0-angular
 ```
 
-Auth0 Angular SDK provides a series of authentication related facilities out of box, including `AuthModule`, `AuthService` , `AuthGuard` and  `AuthHttpInterceptor` .  We have built those components from scratch in the  [hantsy/angular-spring-reactive-sample](https://github.com/hantsy/angular-spring-reactive-sample).
+Auth0 Angular SDK provides a series of authentication related facilities out of box, including `AuthModule`, `AuthService` , `AuthGuard` and  `AuthHttpInterceptor` .  
 
-Configure `AuthModule`  and `AuthHttpInterceptor`  in the *app.module.ts*.
+> I've created similar facilities from scratch in the client part of [hantsy/angular-spring-reactive-sample](https://github.com/hantsy/angular-spring-reactive-sample).
+
+Configure `AuthModule`  and `AuthHttpInterceptor` in the *app.module.ts*.
 
 ```typescript
 // Import the module from the SDK
@@ -113,7 +115,7 @@ const routes: Routes = [
 export class AppRoutingModule {}
 ```
 
-To show/hide the login and log out button, inject an `AuthService` and detect the authentication status via its `isAuthenticated` method.
+To show/hide the login and log out button in the navigation bar, inject an `AuthService` and detect the authentication status via its `isAuthenticated` method.
 
 ```typescript
 export class AuthenticationButtonComponent implements OnInit {
