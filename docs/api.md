@@ -2,7 +2,7 @@
 
 Spring Security 5  deprecated the original Spring Security OAuth module and rewrote the OAuth2/Oidc implementation, make it available as part of the core modules. 
 
-OAuth protocol defines 4 roles, including *Resource Owner*, *Client*, *Authorization server* and *Resource server*. Imagine you are using an app in your mobile, you(*Resource owner*) authorizes the app(presents a *Client* role itself) to perform an authorization flow to get access token from the authorization server, then utilizes this token to interact with the protected resources(from *Resource server*).
+OAuth protocol defines 4 roles, including *Resource Owner*, *Client*, *Authorization server* and *Resource server*. There are a lot of resources in Google search result to explain OAuth2 concept and grant flows. Here let's make long story short. Imagine you are using an app in your mobile, you(*Resource owner*) authorizes the app(presents a *Client* role itself) to perform an authorization flow to get access token from the authorization server, then utilizes this token to interact with the protected resources(from *Resource server*).
 
 Oidc is an additional supplement to enrich OAuth2 protocol. In Spring Security 5, it does not differentiate them explicitly in the API level and configuration. And nowdays most OAuth2 compatible provider supports the Oidc protocol.
 
