@@ -12,7 +12,7 @@ This is a sample project demos how to use Auth0 IDP service to protect the RESTf
 
 ## Guide
 
-TBD.
+* [Secures RESTful APIs with Spring Security 5 and Auth0](./docs/api.md)
 
 ## Prerequisites
 
