@@ -22,7 +22,7 @@ import { HomeModule } from './home/home.module';
       domain: 'dev-ese8241b.us.auth0.com',
       clientId: 'xwulkQN219vK2LU9MKowCo0HQLRi0WQU',
       audience: 'https://hantsy.github.io/api',
-      scope: 'openid profile email read:posts write:posts delete:posts',
+      scope: 'openid profile email read:posts write:posts',
       // The AuthHttpInterceptor configuration
       httpInterceptor: {
         allowedList: [
