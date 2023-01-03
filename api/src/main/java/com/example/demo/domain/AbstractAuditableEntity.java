@@ -8,7 +8,7 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,20 +18,20 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public abstract class AbstractAuditableEntity<ID> extends AbstractPersistableEntity<ID> implements Serializable {
-    
+
     @CreatedDate
     LocalDateTime createdDate;
-    
+
     @LastModifiedDate
     LocalDateTime lastModifiedDate;
-    
+
     @CreatedBy
     //@ManyToOne
     //@JoinColumn(name = "created_by")
     @AttributeOverride(name = "username", column = @Column(name = "created_by"))
     @Embedded
     Username createdBy;
-    
+
     @LastModifiedBy
     //@ManyToOne
     //@JoinColumn(name = "last_modified_by")
