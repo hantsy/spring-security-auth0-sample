@@ -1,4 +1,4 @@
-# Spring Security 5 and Auth0 Integration sample
+# Spring Security 6 and Auth0 Integration sample
 
 ![build](https://github.com/hantsy/spring-security-auth0-sample/workflows/build/badge.svg)
 
@@ -18,8 +18,8 @@ This is a sample project demos how to use Auth0 IDP service to protect the RESTf
 
 Make sure you have installed the following software.
 
-* Java 16
-* Apache Maven 3.6.x
+* Java 17 +
+* Apache Maven 3.x
 * Docker
 
 ## Build 
