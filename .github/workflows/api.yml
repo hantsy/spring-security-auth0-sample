@@ -69,11 +69,11 @@ jobs:
           mvn -B -q package --file api/pom.xml -DskipTests
           mvn -B -q test --file api/pom.xml
 
-      - name: Build Docker Image
-        run: mvn spring-boot:build-image --file api/pom.xml -DskipTests
+      # - name: Build Docker Image
+      #   run: mvn spring-boot:build-image --file api/pom.xml -DskipTests
 
-      - name: Login to DockerHub Registry
-        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+      # - name: Login to DockerHub Registry
+      #   run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
-      - name: Push Docker Image
-        run: docker push hantsy/spring-webmvc-auth0-sample-api:latest
+      # - name: Push Docker Image
+      #   run: docker push hantsy/spring-webmvc-auth0-sample-api:latest
