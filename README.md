@@ -4,7 +4,7 @@
 
 ## What is this?
 
-This is a sample project demos how to use Auth0 IDP service to protect the RESTful APIs written in Spring WebMVC.
+This is a sample project that demonstrates how to use the Auth0 IDP service to protect RESTful APIs written in Spring Web MVC.
 
 > If you are interested in the custom JWT authentication with the Spring WebMvc stack, check [spring-webmvc-jwt-sample](https://github.com/hantsy/spring-webmvc-jwt-sample/) for more details.
 
@@ -16,7 +16,7 @@ This is a sample project demos how to use Auth0 IDP service to protect the RESTf
 
 ## Prerequisites
 
-Make sure you have installed the following software.
+Make sure you have installed the following software:
 
 * Java 17 +
 * Apache Maven 3.x
@@ -24,13 +24,13 @@ Make sure you have installed the following software.
 
 ## Build 
 
-Clone the source codes from Github.
+Clone the source code from GitHub.
 
 ```bash
 git clone https://github.com/hantsy/spring-security-auth0-sample
 ```
 
-Open a terminal, and switch to the root folder of the project, and run the following command to build the whole project.
+Open a terminal, switch to the root folder of the project, and run the following command to build the whole project.
 
 ```bash
 docker-compose up postgres // start up a postgres
